@@ -8,13 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import com.iruri.ex.page.Criteria;
 import com.iruri.ex.vo.IClassVO;
 import com.iruri.ex.vo.ICommentVO;
-import com.iruri.ex.vo.IUserVO;
 import com.iruri.ex.vo.ProfitVO;
 import com.iruri.ex.vo.TableJoinVO;
-import com.iruri.ex.vo.trainerUserManagementVO;
-import com.iruri.ex.vo.BuyVO;
-import com.iruri.ex.vo.ExerciseDateVO;
-import com.iruri.ex.vo.ExerciseKindVO;
 
 @Mapper
 public interface MypageTrainerMapper {

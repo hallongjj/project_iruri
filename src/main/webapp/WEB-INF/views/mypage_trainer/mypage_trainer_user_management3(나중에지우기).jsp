@@ -83,14 +83,14 @@
 					
 					var index = -1;
 					for(var i = 0; i <userInfo.length; i++) {
-							htmls += '<ul>';
 						if(userInfo[i].iclassVo.classId == this.classId) {
 							index = i;
-							htmls += '<li><a href="javascript:commentLink('+ userInfo[i].iuserVo.userId + ',' + this.classId +')">'; 
+							htmls += '<ul>';
+							htmls += '<li onclick="commentLink('+ userInfo[i].iuserVo.userId + ',' + this.classId +')">'; 
 							console.log(userInfo[i].iuserVo.userId, this.classId);
 							htmls += '<span class="pt_nickname_table">'+userInfo[i].iuserVo.userNickname +'</span>&nbsp;';
 							htmls += '<span class="pt_nickname_phone">'+userInfo[i].iuserVo.userPhone+'</span>';
-							htmls += '</a></li>';
+							htmls += '</li>';
 							htmls += '</ul>';
 						}
 					}
@@ -116,17 +116,10 @@
 					htmls += '<table>';
 					htmls += ' <tr>';
 					htmls += '<td class="reply_textarea">';
-					htmls += '<input type="hidden" id="insert_classId_'
-					      + this.classId 
-					      + '" name="classId" value="'
-					      + this.classId 
-					      + '">';
-					htmls += '<input type="hidden" name="classId" value="'+ this.classId + '">';
-					htmls += '<input type="hidden" name="userId" value="'+ userInfo[i].iuserVo.userId + '">';
-					htmls += '<textarea id="commentContent_'+ this.classId +'" placeholder="회원의 닉네임을 선택 후 작성하세요" ></textarea>';
+					htmls += '<textarea placeholder="회원의 닉네임을 선택 후 작성하세요" name="commentContent"></textarea>';
 					htmls += '</td>';
 					htmls += '<td class="reply_insertButton">';
-					htmls += '<button type="button" onclick="javascript:insertUserComment()">입력</button>';
+					htmls += '<button type="button">입력</button>';
 					htmls += '</td>';
 					htmls += '</tr>';
 					htmls += '</table>';
@@ -191,10 +184,10 @@ $(document).ready(function() {
 	commentLink = function(userId,classId) {
 	/* 	alert(userId,classId); */
 	console.log('commentLink');
-	managementComment(userId,classId);    
+	managementComment(userId,classId);
 	
 	// 코멘트 작성자 선택
-    userChoice(userId,classId);
+	userChoice(userId, classId);
 	
 }
 	/* insertUserComment = function(userId, classId, commentContent){
@@ -215,13 +208,16 @@ function userChoice(userId, classId){
 	      + '" name="classId" value="'
 	      + classId 
 	      + '">';
-	htmls += '<input type="hidden" name="classId" value="'+ classId + '">';
-	htmls += '<input type="hidden" name="userId" value="'+ userId + '">';
-	htmls += '<textarea id="commentContent_'+ classId +'" placeholder="회원의 닉네임을 선택 후 작성하세요" ></textarea>';
+	htmls += '<input type="hidden" id="insert_userId'+ classId +'"name="userId" value="'+ userId + '">';
+	htmls += '<textarea id="insert_comment_'+ classId +'" placeholder="회원의 닉네임을 선택 후 작성하세요" name="commentContent"></textarea>';
 	htmls += '</td>';
 	
+	var id1 = 'insert_classId_'+ classId;
+	var id2 = 'insert_userId'+ classId;
+	var id3 = 'insert_comment_'+ classId;
+	
 	htmls += '<td class="reply_insertButton">';
-	htmls += '<button type="button" onclick="javascript:insertUserComment()">입력</button>';
+	htmls += '<button type="button" onclick="insertUserComment('+ id1 +','+ id2 +','+ id3 +')">입력</button>';
 	htmls += '</td>';
 	htmls += '</tr>';
 	htmls += '</table>';
@@ -229,17 +225,19 @@ function userChoice(userId, classId){
 	$('.reply_insertBox').html(htmls);
 }
 
-
-
-function insertUserComment() {
-	
-    var userId = $('input[name=userId]').val();
-	var classId = $('input[name=classId]').val();
-	var commentContent = $('#commentContent_' + classId).val();
+function insertUserComment(classId, userId, commentId) {
 	
 	console.log("클래스:"+classId);
 	console.log("유저:"+userId);
-	console.log("코멘트:"+commentContent);
+	console.log("코멘트:"+commentId);
+	
+	/* var classId = $('#').val(); */
+	var userId = $('input[name="userId"]').val();
+	var commentContent = $('textarea[name="commentContent"]').val();
+	
+	console.log(classId);
+	console.log(userId);
+	console.log(commentContent);
 	
 	console.log('insertComment');
 	
@@ -255,7 +253,7 @@ function insertUserComment() {
 		},
 		success : function(result){
 			console.log("성공!");
-			$('#commentContent_' + classId).val('');
+			$('textarea[name="commentContent"]').empty();
 			managementComment(userId,classId);
 		}
 	
@@ -273,7 +271,6 @@ function managementComment(userId,classId) {
 		data:{
 			userIdInput : userId,
 			classId: classId,
-			length: length,
 		},
 		success : function(result){
 			// 트레이너의 클래스 정보

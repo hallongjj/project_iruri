@@ -127,24 +127,18 @@
             <!-- 수익관리 -->
             <div class="display_flex">
             <div class="pt_profit">
-                <table>
-                    <tr>
-                        <span class="pt_month_text">이달의 수익</span>
-                    </tr>
-
-                    <tr>
-                        <td class="pt_month_number">
-                            ${monthProfit}<span class="pt_won">&nbsp;원</span>
-                        </td>
-                        <td class="pt_pre_month"><span>이전달</span>
-                            <a href=""><img src="../image/arrow_red_left.png" alt="up" class="arrow_width_up_down"></a>
-                        </td>
-                        <td class="pt_next_month"><span>다음달</span>
-                            <a href=""><img src="../image/arrow_red_right.png" alt="up" class="arrow_width_up_down"></a>
-                        </td>
-                    </tr>
-
-                </table>
+            
+            	<table>
+            		<tr><td colspan="3""><span class="pt_month_text">이달의 수익</span></td></tr>
+            		<tr>
+	            		<td class="pt_month_number">${monthProfit}<span class="pt_won">&nbsp;원</span></td>
+	            		<td class="pt_pre_month"><span>이전달</span>
+                            <a href=""><img src="${RESOURCES_PATH }/src/img/icon/arrow_red_left.png" alt="up" class="arrow_width_up_down"></a></td>
+	            		<td class="pt_next_month"><span>다음달</span>
+                            <a href=""><img src="${RESOURCES_PATH }/src/img/icon/arrow_red_right.png" alt="up" class="arrow_width_up_down"></a></td>
+            		</tr>
+            	</table>
+                
                 
                 
                 <div class="pt_class_profit_list"></div>

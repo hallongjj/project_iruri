@@ -3,139 +3,151 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.iruri.ex.mapper.MypageTrainerMapper">
-<!-- iclass  -->
+	<!-- iclass -->
 	<resultMap type="com.iruri.ex.vo.IClassVO" id="iClassMap">
-		<result property="classId" column="CLASS_ID"/>
-		<result property="classTitle" column="CLASS_TITLE"/>
-		<result property="classContent" column="CLASS_CONTENT"/>
-		<result property="classGoal" column="CLASS_GOAL"/>
-		<result property="classExerciseCount" column="CLASS_EXERCISECOUNT"/>
-		<result property="classStartDate" column="CLASS_STARTDATE"/>
-		<result property="classEndDate" column="CLASS_ENDDATE"/>
-		<result property="classImage" column="CLASS_IMAGE"/>
-		<result property="classLike" column="CLASS_LIKE"/>
-		<result property="classState" column="CLASS_STATE"/>
-		<result property="classHit" column="CLASS_HIT"/>
-		<result property="classJoinMember" column="CLASS_JOINMEMBER"/>
-		<result property="classTrainerInfo" column="CLASS_TRAINERINFO"/>
-		<result property="classTotalMember" column="CLASS_TOTALMEMBER"/>
-		<result property="classPrice" column="CLASS_PRICE"/>
-		<result property="classNeed" column="CLASS_NEED"/>
-		<result property="categoryId" column="CATEGORY_ID"/>
-		<result property="classLevel" column="CLASS_LEVEL"/>
-		<result property="rnum" column="rnum"/>
-		<result property="classTime" column="CLASS_TIME"/>
-		<association property="iUserVO" column="USER_ID" javaType="com.iruri.ex.vo.IUserVO" resultMap="com.iruri.ex.mapper.IUserMapper.iUserMap" />
-	</resultMap>
-	
-<!-- money -->
-	<resultMap type="com.iruri.ex.vo.MoneyVO" id="moneyMap">
-		<result property="moneyId" column="MONEY_ID"/>
-		<result property="moneyDate" column="MONEY_DATE"/>
-		<result property="moneyInput" column="MONEY_INPUT"/>
-		<result property="moneyOutput" column="MONEY_OUTPUT"/>
-		<result property="payId" column="PAY_ID"/>
-		<association property="iUserVO" column="USER_ID" javaType="com.iruri.ex.vo.IUserVO" resultMap="com.iruri.ex.mapper.IUserMapper.iUserMap" />
-	</resultMap>
-	
-<!-- pay -->
-    <resultMap type="com.iruri.ex.vo.PayVO" id="payMap">
-		<result property="payId" column="PAY_ID"/>
-		<result property="payState" column="PAY_STATE"/>
-		<result property="payWay" column="PAY_WAY"/>
-		<result property="buyId" column="BUY_ID"/>
-	</resultMap>
-	
-<!-- buy -->
-	<resultMap type="com.iruri.ex.vo.BuyVO" id="buyMap">
-		<result property="buyId" column="BUY_ID"/>
-		<result property="buyRealpay" column="BUY_REALPAY"/>
-		<result property="buyPoint" column="BUY_POINT"/>
-		<result property="buyDate" column="BUY_DATE"/>
-		<result property="payId" column="PAY_ID"/>
-		<result property="classId" column="CLASS_ID"/>
-		<association property="iUserVO" column="USER_ID" javaType="com.iruri.ex.vo.IUserVO" resultMap="com.iruri.ex.mapper.IUserMapper.iUserMap" />
-		
-		<collection property="iClassList" resultMap="iClassMap">
-		</collection>
-		
-		<collection property="moneyList" resultMap="moneyMap">
-		</collection>
-		
-		<collection property="payList" resultMap="payMap">
-		</collection>
-	
-	</resultMap>
-	
-	<!-- ProfitVO -->
-	<resultMap type="com.iruri.ex.vo.ProfitVO" id="ProfitMap">
-		<result property="buyRealpay" column="BUY_REALPAY"/>
-		<result property="buyPoint" column="BUY_POINT"/>
-		<result property="buyDate" column="BUY_DATE"/>
-		<result property="classId" column="CLASS_ID"/>
-		<result property="classTitle" column="CLASS_TITLE"/>
-		<result property="rnum" column="rnum"/>
-		<association property="iUserVO" column="USER_ID" javaType="com.iruri.ex.vo.IUserVO" resultMap="com.iruri.ex.mapper.IUserMapper.iUserMap" />
+		<result property="classId" column="CLASS_ID" />
+		<result property="classTitle" column="CLASS_TITLE" />
+		<result property="classContent" column="CLASS_CONTENT" />
+		<result property="classGoal" column="CLASS_GOAL" />
+		<result property="classExerciseCount"
+			column="CLASS_EXERCISECOUNT" />
+		<result property="classStartDate" column="CLASS_STARTDATE" />
+		<result property="classEndDate" column="CLASS_ENDDATE" />
+		<result property="classImage" column="CLASS_IMAGE" />
+		<result property="classLike" column="CLASS_LIKE" />
+		<result property="classState" column="CLASS_STATE" />
+		<result property="classHit" column="CLASS_HIT" />
+		<result property="classJoinMember" column="CLASS_JOINMEMBER" />
+		<result property="classTrainerInfo" column="CLASS_TRAINERINFO" />
+		<result property="classTotalMember" column="CLASS_TOTALMEMBER" />
+		<result property="classPrice" column="CLASS_PRICE" />
+		<result property="classNeed" column="CLASS_NEED" />
+		<result property="categoryId" column="CATEGORY_ID" />
+		<result property="classLevel" column="CLASS_LEVEL" />
+		<result property="rnum" column="rnum" />
+		<result property="classTime" column="CLASS_TIME" />
+		<association property="iUserVO" column="USER_ID"
+			javaType="com.iruri.ex.vo.IUserVO"
+			resultMap="com.iruri.ex.mapper.IUserMapper.iUserMap" />
 	</resultMap>
 
-	
+	<!-- money -->
+	<resultMap type="com.iruri.ex.vo.MoneyVO" id="moneyMap">
+		<result property="moneyId" column="MONEY_ID" />
+		<result property="moneyDate" column="MONEY_DATE" />
+		<result property="moneyInput" column="MONEY_INPUT" />
+		<result property="moneyOutput" column="MONEY_OUTPUT" />
+		<result property="payId" column="PAY_ID" />
+		<association property="iUserVO" column="USER_ID"
+			javaType="com.iruri.ex.vo.IUserVO"
+			resultMap="com.iruri.ex.mapper.IUserMapper.iUserMap" />
+	</resultMap>
+
+	<!-- pay -->
+	<resultMap type="com.iruri.ex.vo.PayVO" id="payMap">
+		<result property="payId" column="PAY_ID" />
+		<result property="payState" column="PAY_STATE" />
+		<result property="payWay" column="PAY_WAY" />
+		<result property="buyId" column="BUY_ID" />
+	</resultMap>
+
+	<!-- buy -->
+	<resultMap type="com.iruri.ex.vo.BuyVO" id="buyMap">
+		<result property="buyId" column="BUY_ID" />
+		<result property="buyRealpay" column="BUY_REALPAY" />
+		<result property="buyPoint" column="BUY_POINT" />
+		<result property="buyDate" column="BUY_DATE" />
+		<result property="payId" column="PAY_ID" />
+		<result property="classId" column="CLASS_ID" />
+		<association property="iUserVO" column="USER_ID"
+			javaType="com.iruri.ex.vo.IUserVO"
+			resultMap="com.iruri.ex.mapper.IUserMapper.iUserMap" />
+
+		<collection property="iClassList" resultMap="iClassMap">
+		</collection>
+
+		<collection property="moneyList" resultMap="moneyMap">
+		</collection>
+
+		<collection property="payList" resultMap="payMap">
+		</collection>
+
+	</resultMap>
+
+	<!-- ProfitVO -->
+	<resultMap type="com.iruri.ex.vo.ProfitVO" id="ProfitMap">
+		<result property="buyRealpay" column="BUY_REALPAY" />
+		<result property="buyPoint" column="BUY_POINT" />
+		<result property="buyDate" column="BUY_DATE" />
+		<result property="classId" column="CLASS_ID" />
+		<result property="classTitle" column="CLASS_TITLE" />
+		<result property="rnum" column="rnum" />
+		<association property="iUserVO" column="USER_ID"
+			javaType="com.iruri.ex.vo.IUserVO"
+			resultMap="com.iruri.ex.mapper.IUserMapper.iUserMap" />
+	</resultMap>
+
+
 	<!-- trainerUserManagementVO -->
-	<resultMap type="com.iruri.ex.vo.trainerUserManagementVO" id="trainerUserManagementMap">
-		<result property="classId" column="CLASS_ID"/>
-		<result property="classTitle" column="CLASS_TITLE"/>
-		<result property="classEndDate" column="CLASS_ENDDATE"/>
-		<result property="classState" column="CLASS_STATE"/>
-		<result property="classJoinMember" column="CLASS_JOINMEMBER"/>
-		<result property="rnum" column="rnum"/>
-		
+	<resultMap type="com.iruri.ex.vo.trainerUserManagementVO"
+		id="trainerUserManagementMap">
+		<result property="classId" column="CLASS_ID" />
+		<result property="classTitle" column="CLASS_TITLE" />
+		<result property="classEndDate" column="CLASS_ENDDATE" />
+		<result property="classState" column="CLASS_STATE" />
+		<result property="classJoinMember" column="CLASS_JOINMEMBER" />
+		<result property="rnum" column="rnum" />
+
 		<collection property="iUserList" resultMap="iUserMap">
 		</collection>
-		
-		
-	
+
+
+
 	</resultMap>
-	
+
 	<!-- IUserVO -->
 	<resultMap type="com.iruri.ex.vo.IUserVO" id="iUserMap">
-		<result property="userId" column="user_id"/>
-		<result property="userEmail" column="user_email"/>
-		<result property="userPw" column="user_pw"/>
-		<result property="userNickname" column="user_nickname"/>
-		<result property="userName" column="user_name"/>
-		<result property="userPhone" column="user_phone"/>
-		<result property="userSigndate" column="user_signdate"/>
-		<result property="userPoint" column="user_point"/>
-		<result property="userBlackList" column="user_blacklist"/>
-		<result property="userBlaskListReason" column="user_blacklist_reason"/>
+		<result property="userId" column="user_id" />
+		<result property="userEmail" column="user_email" />
+		<result property="userPw" column="user_pw" />
+		<result property="userNickname" column="user_nickname" />
+		<result property="userName" column="user_name" />
+		<result property="userPhone" column="user_phone" />
+		<result property="userSigndate" column="user_signdate" />
+		<result property="userPoint" column="user_point" />
+		<result property="userBlackList" column="user_blacklist" />
+		<result property="userBlaskListReason"
+			column="user_blacklist_reason" />
 	</resultMap>
-	
-	
+
+
 	<!-- 유저정보, 클래스 정보 VO -->
-	<resultMap type="com.iruri.ex.vo.TableJoinVO" id="userClassJoinMap">
+	<resultMap type="com.iruri.ex.vo.TableJoinVO"
+		id="userClassJoinMap">
 		<collection property="iuserVo" resultMap="iUserMap"></collection>
 		<collection property="iclassVo" resultMap="iClassMap"></collection>
 	</resultMap>
-	
-	
+
+
 	<!-- ICommentVO -->
 	<resultMap type="com.iruri.ex.vo.ICommentVO" id="iCommentMap">
-		<result property="commentId" column="comment_id"/>
-		<result property="commentDate" column="comment_date"/>
-		<result property="commentContent" column="comment_content"/>
-		<result property="classId" column="class_id"/>
+		<result property="commentId" column="comment_id" />
+		<result property="commentDate" column="comment_date" />
+		<result property="commentContent" column="comment_content" />
+		<result property="classId" column="class_id" />
 	</resultMap>
-	
-	
-	
-	
-	<!-- 현재 진행중인 클래스(+페이징)  -->
+
+
+
+
+	<!-- 현재 진행중인 클래스(+페이징) -->
 	<select id="countMypageTrainerClass" resultType="int">
 	<![CDATA[
 		select count(*) from iClass where user_id = #{userId} and CLASS_ENDDATE >= sysdate
 	]]>
 	</select>
 
-	<!-- 트레이너의 총수익 뽑기  -->
+	<!-- 트레이너의 총수익 뽑기 -->
 	<select id="trainerProfit" resultType="int">
 		<![CDATA[
 	SELECT (select sum(buy_realpay + buy_point)
@@ -147,7 +159,7 @@ from buy where class_id in (select class_id from iclass where user_id = #{userId
 		]]>
 	</select>
 
-	<!-- 트레이너의 월별 수익 뽑기  -->
+	<!-- 트레이너의 월별 수익 뽑기 -->
 	<select id="monthProfit" resultType="int">
 		<![CDATA[
 		select (select sum(buy_realpay + buy_point) 
@@ -163,8 +175,8 @@ and (SELECT LAST_DAY(SYSDATE) FROM DUAL)
 )))) as thisMonthProfit from dual
 		]]>
 	</select>
-	
-	
+
+
 	<!-- 트레이너 수익 페이징 -->
 	<select id="getTotalCount_mypageTrainerProfit" resultType="int">
 	<![CDATA[
@@ -173,9 +185,10 @@ where buy.class_id=iclass.class_id and iclass.user_id=#{userId}
 order by buy.buy_date desc
 	]]>
 	</select>
-	
+
 	<!-- 트레이너의 월별 수익 뽑기 + 페이징 -->
-	<select id="profitList" parameterType="HashMap" resultMap="ProfitMap">
+	<select id="profitList" parameterType="HashMap"
+		resultMap="ProfitMap">
 		<![CDATA[
 				SELECT *
 FROM
@@ -193,17 +206,18 @@ FROM
 WHERE rn > (#{cri.pageNum}-1) * #{cri.amount}
 		]]>
 	</select>
-	
-	
+
+
 	<!-- 회원관리 페이징 -->
 	<select id="getTotal_trainerUserManagement" resultType="int">
 	<![CDATA[
 		select count(*) from iClass where user_id = #{userId}
 	]]>
 	</select>
-	
+
 	<!-- 회원관리 + 페이징 -->
-	<select id="trainerUserManagement" parameterType="HashMap" resultMap="trainerUserManagementMap">
+	<select id="trainerUserManagement" parameterType="HashMap"
+		resultMap="trainerUserManagementMap">
 		<![CDATA[
 				SELECT *
 FROM
@@ -221,10 +235,11 @@ FROM
 WHERE rn > (#{cri.pageNum}-1) * #{cri.amount}
 		]]>
 	</select>
-	
-	
+
+
 	<!-- 회원관리 List2 -->
-	<select id="trainerUserManagementList2" resultMap="trainerUserManagementMap">
+	<select id="trainerUserManagementList2"
+		resultMap="trainerUserManagementMap">
 		<![CDATA[
 			select *
 from iuser, 
@@ -238,8 +253,8 @@ where c.user_id = iuser.user_id
 order by c.class_id desc
 		]]>
 	</select>
-	
-	<!-- comment 리스트  -->
+
+	<!-- comment 리스트 -->
 	<select id="commentList" resultMap="trainerUserManagementMap">
 		<![CDATA[
 			SELECT distinct *
@@ -257,8 +272,8 @@ WHERE icomment.user_id = cm.user_id
 order by icomment.comment_id
 		]]>
 	</select>
-	
-	
+
+
 	<!-- 특정 트레이너가 개설한 클래스 리스트 -->
 	<select id="pagingTrainerClassList" resultMap="iClassMap">
 		<![CDATA[
@@ -277,7 +292,7 @@ order by icomment.comment_id
 		WHERE rn > (#{cri.pageNum}-1) * #{cri.amount}
 		]]>
 	</select>
-	
+
 	<!-- 특정 트레이너가 개설한 클래스 리스트 갯수 -->
 	<select id="countPagingClassList" resultType="Integer">
 	<![CDATA[
@@ -289,7 +304,7 @@ order by icomment.comment_id
 	    )
 	]]>
 	</select>
-	
+
 	<!-- 클래스에 등록한 유저 리스트 -->
 	<select id="ClassBuyUserList" resultMap="userClassJoinMap">
 		<![CDATA[
@@ -303,8 +318,8 @@ order by icomment.comment_id
 		order by u.user_id desc
 		]]>
 	</select>
-	
-	
+
+
 	<!-- 해당 클래스의 특정 유저에 대한 코멘트 리스트 -->
 	<select id="ClassBuyUserCommentList" resultMap="iCommentMap">
 		<![CDATA[
@@ -314,8 +329,8 @@ order by icomment.comment_id
 		order by comment_id desc	
 		]]>
 	</select>
-	
-	
+
+
 	<insert id="insertComment">
 	<![CDATA[
 		INSERT INTO icomment (
@@ -324,8 +339,8 @@ order by icomment.comment_id
     comment_content,
     user_id,
     class_id
-) VALUES (
-    (select max(comment_id) from icomment)+1,
+	) VALUES (
+	(select max(comment_id) from icomment)+1,
     sysdate,
     #{commentContent},
     #{userId},
@@ -333,8 +348,8 @@ order by icomment.comment_id
 )
 	]]>
 	</insert>
-	
-	
+
+
 
 
 </mapper>
