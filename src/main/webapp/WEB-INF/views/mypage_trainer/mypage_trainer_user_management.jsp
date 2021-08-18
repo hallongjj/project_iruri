@@ -122,7 +122,7 @@
 					      + this.classId 
 					      + '">';
 					htmls += '<input type="hidden" name="classId" value="'+ this.classId + '">';
-					htmls += '<input type="hidden" name="userId" value="'+ userInfo[i].iuserVo.userId + '">';
+					/* htmls += '<input type="hidden" name="userId" value="'+ userInfo[i].iuserVo.userId + '">'; */
 					htmls += '<textarea id="commentContent_'+ this.classId +'" placeholder="회원의 닉네임을 선택 후 작성하세요" ></textarea>';
 					htmls += '</td>';
 					htmls += '<td class="reply_insertButton">';
@@ -217,7 +217,7 @@ function userChoice(userId, classId){
 	      + '">';
 	htmls += '<input type="hidden" name="classId" value="'+ classId + '">';
 	htmls += '<input type="hidden" name="userId" value="'+ userId + '">';
-	htmls += '<textarea id="commentContent_'+ classId +'" placeholder="회원의 닉네임을 선택 후 작성하세요" ></textarea>';
+	htmls += '<textarea class="commentContent_'+ classId +'" placeholder="회원의 닉네임을 선택 후 작성하세요" ></textarea>';
 	htmls += '</td>';
 	
 	htmls += '<td class="reply_insertButton">';
@@ -235,7 +235,9 @@ function insertUserComment() {
 	
     var userId = $('input[name=userId]').val();
 	var classId = $('input[name=classId]').val();
-	var commentContent = $('#commentContent_' + classId).val();
+	let commentId = '.commentContent_' + classId;
+	console.log('commentId: '+commentId);
+	var commentContent = $(commentId).val();
 	
 	console.log("클래스:"+classId);
 	console.log("유저:"+userId);
