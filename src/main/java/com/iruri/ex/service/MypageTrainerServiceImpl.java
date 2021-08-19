@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.iruri.ex.mapper.MypageTrainerMapper;
 import com.iruri.ex.page.Criteria;
+import com.iruri.ex.vo.BoardVO;
 import com.iruri.ex.vo.BuyVO;
 import com.iruri.ex.vo.IClassVO;
 import com.iruri.ex.vo.ICommentVO;
@@ -33,15 +34,33 @@ public class MypageTrainerServiceImpl implements MypageTrainerService {
  // 수익---------------------------------------------------
     // 총수익
     public int trainerProfit(int userId) {
+        try {
         return mypageTrainerMapper.trainerProfit(userId);
+    } catch (Exception e) {
+        return 0;
+    }
     }
     
     // 이달의 수익
+    /*
+     * @Override public int monthProfit(int userId) { return
+     * mypageTrainerMapper.monthProfit(userId); }
+     */
+    
     @Override
-    public int monthProfit(int userId) {
-        return mypageTrainerMapper.monthProfit(userId);
+    public int getTotalCount_monthProfit(Criteria cri, int userId) {
+        return mypageTrainerMapper.getTotalCount_monthProfit(cri, userId);
     }
     
+    /*
+     * @Override public List<ProfitVO> monthProfitList(Criteria cri, int userId) {
+     * return mypageTrainerMapper.monthProfitList(cri, userId); }
+     */
+    @Override
+    public List<ProfitVO> monthProfitList(int userId) {   
+        return mypageTrainerMapper.monthProfitList(userId);
+    }
+
     // 수익
     @Override
     public int getTotal_mypageTrainerProfit(Criteria cri, int userId) {
@@ -90,5 +109,25 @@ public class MypageTrainerServiceImpl implements MypageTrainerService {
         mypageTrainerMapper.insertComment(userId, classId, commentContent);
     }
 
+    // 클래스 댓글조회
+    @Override
+    public Integer countReply(Criteria cri, int userId) {
+        try {
+            int total = mypageTrainerMapper.countReply(cri, userId);
+            return total;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    @Override
+    public List<BoardVO> classReplyList(Criteria cri, int userId) {
+        
+        return mypageTrainerMapper.classReplyList(cri, userId);
+    }
+
+  
+
+   
     
 }

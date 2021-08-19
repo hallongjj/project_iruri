@@ -68,6 +68,10 @@
 																test="${user.authList[0].authContent eq 'ROLE_USER'}">
 																<div>일반회원</div>
 														</c:if>
+														<c:if
+														test="${user.authList[0].authContent eq 'ROLE_PAYUSER'}">
+														<div>프리미엄 회원</div>
+												</c:if>
 														<br>${user.userEmail}</div>
 										</div>
       <div id = "m_userboard_box">
@@ -120,11 +124,15 @@
 										<c:forEach var="userclasslist" items="${userclasslist}"
 												varStatus="status">
 
-												<li class="m_cl_recommend_img">
+												 <div> 
+												<!-- <a class="m_cl_recommend_img" href="/ex/resources/src/img/icon/565-440.png"> -->
+												<img alt="" class="m_cl_recommend_img" src="${CONTEXT_PATH}/iruri/display?fileName=${userclasslist.classImage}" alt="" > 
+															<!--  <div style="width: 100%; height: 100%;"> -->
 														<button class="m_cl_cancel_class_bt" id="${userclasslist.classId}">클래스취소</button>
-														<div class="m_cl_recommend_title">
+														<div class="m_cl_recommend_title"><a href="/ex/iruri/ptClassDetails?classId=${userclasslist.classId}">
 																${userclasslist.classTitle}
-																
+																</a>
+						
 														</div>
 
 														<span class="m_cl_recommend_date">
@@ -137,7 +145,8 @@
 																		for="heart${userclasslist.classId}"
 																		class="m_r_heart_label"></label>
 														</div>
-												</li>
+														<!-- </div> -->
+												</div> <!-- </a> -->
 
 										</c:forEach>
 									</ul>
@@ -284,7 +293,7 @@
 
 												if (list.length < 1) {
 													htmls += '<div class="m_cl_list_not">';
-													htmls += '하트를 누른 챌린지가 없습니다.';
+													htmls += '하트를 누른 클래스가 없습니다.';
 													htmls += '</div>';
 
 												} else {
@@ -292,7 +301,7 @@
 																	function() {
 																		htmls += '<div class="m_cl_list_detail">';
 																		htmls += '<div class="m_cl_list_img">';
-																		htmls += '<img src="/ex/resources/src/img/icon/360-250.png">';
+																		htmls += '<img class="m_cl_list_img_please" src="${CONTEXT_PATH}/iruri/display?fileName=' + this.classImage + '" alt="">';
 																		htmls += '</div>';
 
 																		htmls += '<div class="m_cl_trainer_name">'
@@ -300,7 +309,7 @@
 																		htmls += '</div>';
 
 																		htmls += '<div class="m_cl_list_title">';
-																		htmls += '<a href="c_detail_before?classId='
+																		htmls += '<a href="/ex/iruri/ptClassDetails?classId='
 																				+ this.classId
 																				+ '">';
 																		htmls += this.classTitle;
@@ -464,7 +473,7 @@
 																	function() {
 																		htmls += '<div class="m_cl_list_detail">';
 																		htmls += '<div class="m_cl_list_img">';
-																		htmls += '<img src="/ex/resources/src/img/icon/360-250.png">';
+																		htmls += '<img class="m_cl_list_img_please" src="${CONTEXT_PATH}/iruri/display?fileName=' + this.classImage + '" alt="">';
 																		htmls += '</div>';
 
 																		htmls += '<div class="m_cl_trainer_name">';
@@ -595,44 +604,39 @@
                                                                             type="checkbox" id="heart5"><label for="heart5"
                                                                             class="m_cl_heart_label"></label> </div> </div> -->
 
-						<!-- 팝업창 -->
-						<div class="modal" max-width:="max-width:" 400px;="400px;"
-								min-width:="min-width:" 500px;="500px;" margin:="margin:"
-								auto;="auto;" background-color:="background-color:"
-								#eee;="#eee;">
-								<div class="modal_content" title="클릭하면 창이 닫힙니다.">
-										<div class="alertWindow">
-												<div class="alertWindow_close">
-														<img src='/ex/resources/src/img/icon/close.png'
-																width="20px" height="20px">
-												</div>
-												<div class="alertWindow_insert">
-														<h2 class="alertWindow_title">정보수정</h2>
-														<form action="#">
-																<p>비밀번호</p>
-																<input class="inputbox_size1" type="text" />
+				<!-- 팝업창  -->
+				<div class="modal">
+						<div class="modal_content" title="클릭하면 창이 닫힙니다.">
+								<div class="alertWindow">
+										<div class="alertWindow_close">
+												<img
+														src='http://localhost:8282/ex/resources/src/img/icon/close.png'
+														width="20px" height="20px">
+										</div>
+										<div class="alertWindow_insert">
+												<h2 class="alertWindow_title">정보수정</h2>
+												<form action="update" method="GET">
+														<p>비밀번호</p>
+														<input class="inputbox_size1" name="userPw" type="text" placeholder="8~16자리의 영문 대소문자, 숫자 및 특수문자 사용" autocomplete="off"  />
 
-																<p>비밀번호 확인</p>
-																<input class="inputbox_size1" type="text" />
+														<p>비밀번호 확인</p>
+														<input class="inputbox_size1" type="text" placeholder="8~16자리의 영문 대소문자, 숫자 및 특수문자 사용" autocomplete="off" />
 
-																<p>닉네임</p>
-																<input class="inputbox_size2" type="text">
-																<p>전화번호</p>
-																<input class="inputbox_size2" type="text">
-
-																<button class="alertWindow_submit" type="submit">비밀번호
-																		변경</button>
-														</form>
-												</div>
+														<p>닉네임</p>
+														<input class="inputbox_size2" name="userNickname"
+																type="text" autocomplete="off">
+														<p>전화번호</p>
+														<input class="inputbox_size2" name="userPhone" type="text" autocomplete="off">
+														<button class="alertWindow_submit" type="submit">회원정보
+																변경</button>
+												</form>
 										</div>
 								</div>
 						</div>
+				</div>
 
 						<!-- 클래스취소 -->
-						<div class="class_cancel" max-width:="max-width:" 400px;="400px;"
-								min-width:="min-width:" 500px;="500px;" margin:="margin:"
-								auto;="auto;" background-color:="background-color:"
-								#eee;="#eee;">
+						<div class="class_cancel" >
 								<div class="modal_content" title="클릭하면 창이 닫힙니다.">
 										<div class="alertWindow_class">
 												<div class="alertWindow_close">
@@ -652,6 +656,7 @@
 												</div>
 										</div>
 								</div>
+							
 						</div>
 
 				</main>

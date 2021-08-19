@@ -41,8 +41,8 @@
 .suggestImg {
   width: 568px;
   height: 440px;
-  background-size: cover;
-  background-position: center;
+  background-size: cover !important; 
+  background-position: center !important;
   border-radius: 30px;
   padding: 45px;
   display: flex;
@@ -104,14 +104,26 @@
   height: 43px;
 }
 
-.ptClassNav {
+.ptClassNav,
+.ptClassWrap p {
   margin-top: 100px;
   margin-bottom: 53px;
+}
+
+p {
   display: flex;
   gap: 40px;
   font-size: 24px;
   font-family: var(--Cafe24SsurroundAir);
   font-weight: bold;
+}
+
+.ptClassNav {
+  display: flex;
+  font-size: 24px;
+  gap: 40px;
+  margin-top: 50px;
+  margin-bottom: 35px;
 }
 
 .ptClassNav a {
@@ -132,6 +144,10 @@
 
 .ptClassFilter > div {
   display: flex;
+}
+
+.ptClassFilter input[type="radio"] {
+  display: none;
 }
 
 .ptClassFilter-label {
@@ -173,6 +189,11 @@
   margin-bottom: 53px;
 }
 
+.ptClassSelect .select_ul {
+    position: absolute;
+    z-index: 1;
+} 
+
 .ptSelect {
   display: flex;
   justify-content: center;
@@ -191,7 +212,6 @@
 }
 
 .ptClassSelect ul {
-  display: inline;
   left: 0;
   top: 45px;
 }
@@ -199,7 +219,7 @@
 .ptClassList {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+
 }
 
 .ptClassList .c_list_img {

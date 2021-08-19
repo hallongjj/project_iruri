@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iruri.ex.page.Criteria;
 import com.iruri.ex.page.PageVO;
+import com.iruri.ex.page.mypageTainerPageVO;
 import com.iruri.ex.security.CurrentUser;
 import com.iruri.ex.service.IClassService;
 import com.iruri.ex.service.IUserService;
 import com.iruri.ex.service.MypageTrainerService;
+import com.iruri.ex.vo.BoardVO;
 import com.iruri.ex.vo.IClassVO;
 import com.iruri.ex.vo.ICommentVO;
 import com.iruri.ex.vo.IUserVO;
@@ -39,7 +41,8 @@ public class MypageTrainerController {
     IClassService iClassService;
     @Autowired
     MypageTrainerService mypageTrainerService;
-    // 마이페이지로 이동
+    
+    //---- 트레이너 마이페이지
     @RequestMapping("/mypage/trainer")
     public String mypageT(@CurrentUser IUserVO vo, Model model) {
         log.info("main() ... ");
@@ -77,18 +80,15 @@ public class MypageTrainerController {
         log.info("토탈: " + total);
 
         List<IClassVO> list = iClassService.mypageTrainerClassList(cri, userId);
-        // ajax 로 페이징 처리가 되어 다중값이 처리가 안됨-> 해결방법 나중에 생각하기!!!!!!!!!!!!!!!!!!!!
+        // ajax 로 페이징 처리가 되어 다중값이 처리가 안됨
         result.put("list", list);
-
         
         log.info("리스트: " + list);
 
         result.put("pageMaker", new PageVO(cri, total));
-
+        // 다중 값 처리를 위해 클래스 리스트를 받아옴
         List<IClassVO> classList = iClassService.classList(vo.getUserId());
         result.put("jebal", classList);
-
-        
         return ResponseEntity.ok(result);
     }
 
@@ -116,12 +116,15 @@ public class MypageTrainerController {
         log.info("리스트: " + list);
 
         result.put("pageMaker", new PageVO(cri, total));
+        
+        List<IClassVO> classList = iClassService.classEndList(vo.getUserId());
+        result.put("jebal", classList);
 
+        
         return ResponseEntity.ok(result);
     }
 
     // 수익
-    
     @RequestMapping("/mypage/trainer/profit")
     public String mypageProfit(Principal principal, Model model) {
         log.info("profit() ... ");
@@ -132,7 +135,7 @@ public class MypageTrainerController {
         int userId = vo.getUserId();
         
         //트레이너의 운영중인 클래스
-        int countMypageTrainerClass =mypageTrainerService.countMypageTrainerClass(userId);
+        int countMypageTrainerClass = mypageTrainerService.countMypageTrainerClass(userId);
         model.addAttribute("countMypageTrainerClass", countMypageTrainerClass);
         
         // 트레이너 총수익
@@ -142,11 +145,60 @@ public class MypageTrainerController {
         model.addAttribute("trainerProfitMan", trainerProfitMan);
         
         // 트레이너 월별 수익
-        int monthProfit = mypageTrainerService.monthProfit(userId);
-        model.addAttribute("monthProfit", monthProfit);
-
+        //List<ProfitVO> monthProfitList = mypageTrainerService.monthProfitList(userId);
+       // model.addAttribute("monthProfitList", monthProfitList);
+      //  log.info("monthProfitList");
+       // log.info(monthProfitList);
+        
         return "mypage_trainer/mypage_trainer_profit";
     }
+    
+    // 월수익 ajax
+//    @ResponseBody
+//    @GetMapping("/ajax/mypage/monthProfit")
+//    public ResponseEntity<HashMap<String, Object>> mypageTrainerMonthProfit(@CurrentUser IUserVO vo, @RequestParam("pageNum") int pageNum) {
+//        log.info("mypageTrainerMonthProfit");
+//        // 1개의 리스트
+//        Criteria cri = new Criteria(pageNum, 1);
+//
+//        HashMap<String, Object> result = new HashMap<>();
+//
+//        int userId = vo.getUserId();
+//        log.info("유저아이디: " + userId);
+//
+//        int total = mypageTrainerService.getTotalCount_monthProfit(cri, userId);
+//        log.info("토탈: " + total);
+//
+//        // 트레이너 월별 수익
+//        List<ProfitVO> monthProfitList = mypageTrainerService.monthProfitList(cri, userId);
+//        
+//        result.put("monthProfitList", monthProfitList);
+//        log.info("monthProfitList");
+//        
+//        result.put("pageMaker", new mypageTainerPageVO(cri, total));
+//
+//        return ResponseEntity.ok(result);
+//    }
+    
+    
+    
+    @ResponseBody
+    @GetMapping("/ajax/mypage/monthProfit")
+    public ResponseEntity<HashMap<String, Object>> mypageTrainerMonth(@CurrentUser IUserVO vo) {
+        log.info("mypageTrainerMonthProfit");
+        HashMap<String, Object> result = new HashMap<>();
+        
+        int userId = vo.getUserId();
+     // 트레이너 월별 수익
+        List<ProfitVO> monthProfitList = mypageTrainerService.monthProfitList(userId);
+        
+        result.put("monthProfitList", monthProfitList);
+        log.info("monthProfitList");
+        
+        return ResponseEntity.ok(result);
+    }
+    
+    
     
     // 수익 ajax
     @ResponseBody
@@ -274,6 +326,56 @@ public class MypageTrainerController {
         
         return ResponseEntity.ok(result);
     }
+    
+    // 클래스 댓글조회
+    @RequestMapping("/mypage/trainer/classReply")
+    public String mypageclassReply(@CurrentUser IUserVO vo, Model model) {
+        log.info("classReply() ... ");
+        
+        // 유저정보 받기
+        model.addAttribute("user", vo);
+        
+        int userId = vo.getUserId();
+        //트레이너의 운영중인 클래스
+        int countMypageTrainerClass =mypageTrainerService.countMypageTrainerClass(userId);
+        model.addAttribute("countMypageTrainerClass", countMypageTrainerClass);
+        
+        // 트레이너 총수익
+        int trainerProfit = mypageTrainerService.trainerProfit(userId);
+        int trainerProfitMan = trainerProfit/10000;
+        model.addAttribute("trainerProfitMan", trainerProfitMan);
+        
+        return "mypage_trainer/mypage_trainer_class_comment";
+    }
+    
+    // 클래스 댓글조회
+    @ResponseBody
+    @GetMapping("/ajax/mypage/classReply")
+    public ResponseEntity<HashMap<String, Object>> mypageclassReplyAjax(@CurrentUser IUserVO vo, @RequestParam("pageNum") int pageNum) {
+        log.info("mypageTrainerProfit");
+        // 3개의 리스트
+        Criteria cri = new Criteria(pageNum, 3);
+
+        HashMap<String, Object> result = new HashMap<>();
+
+        int userId = vo.getUserId();
+        log.info("유저아이디: " + userId);
+
+        int total = mypageTrainerService.countReply(cri, userId);
+        log.info("토탈: " + total);
+
+        // 클래스 댓글 리스트
+        List<BoardVO> ReplyList = mypageTrainerService.classReplyList(cri, userId);
+        result.put("ReplyList", ReplyList);
+
+        log.info("리스트: " + ReplyList);
+        
+        result.put("pageMaker", new PageVO(cri, total));
+
+        return ResponseEntity.ok(result);
+    }
+    
+
    
     
     

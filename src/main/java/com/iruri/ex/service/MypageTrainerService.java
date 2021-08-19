@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.iruri.ex.vo.BoardVO;
 import com.iruri.ex.page.Criteria;
 import com.iruri.ex.vo.BuyVO;
 import com.iruri.ex.vo.ExerciseDateVO;
@@ -23,8 +24,10 @@ public interface MypageTrainerService {
     // 총수익
     int trainerProfit(int userId);
     
-    // 이달의 수익
-    int monthProfit(int userId);
+    // 월 수익 리스트    
+    int getTotalCount_monthProfit(Criteria cri, int userId);
+   
+    List<ProfitVO> monthProfitList(int userId);
     
     // 트레이너 수익 리스트
     int getTotal_mypageTrainerProfit(Criteria cri, int userId);
@@ -44,6 +47,12 @@ public interface MypageTrainerService {
     List<ICommentVO> ClassBuyUserCommentList(int userId, int classId);
 
     void insertComment(@Param("userId") int userId, @Param("classId") int classId, @Param("commentContent") String commentContent);
-    
+
+    Integer countReply(Criteria cri, int userId);
+
+    List<BoardVO> classReplyList(Criteria cri, int userId);
+
+  
+   
   
 }
